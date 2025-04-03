@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom.fyi - Next-Gen Technology Solutions</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --secondary: #10B981;
+            --accent: #8B5CF6;
+            --text-color: #B4B9C2;
+            --bg-color: #FFFFFF;
+            --purple: #8B5CF6;
+            font-size: 16px;
+        }
+
+        html.dark-mode {
+            --primary: #8B5CF6;
+            --secondary: #34D399;
+            --accent: #A78BFA;
+            --text-color: #FFFFFF;
+            --bg-color: #B4B9C2;
+            --purple: #A78BFA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                        border-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        ::selection {
+            background-color: var(--purple);
+            color: var(--bg-color);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            padding: 0.25rem;
+            background: var(--bg-color);
+            border: 0.125rem solid var(--text-color);
+            color: var(--text-color);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            width: 1.5rem;
+            height: 1.5rem;
+            box-shadow: 0 2px 8px rgba(180, 185, 194, 0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--purple);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-toggle svg {
+            width: 12px;
+            height: 12px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            fill: var(--text-color);
+        }
+
+        .theme-toggle:hover svg {
+            fill: var(--purple);
+        }
+
+        html.dark-mode .theme-toggle {
+            background: var(--bg-color);
+            border-color: var(--text-color);
+        }
+
+        html.dark-mode .theme-toggle svg {
+            fill: var(--text-color);
+        }
+
+        html.dark-mode .theme-toggle:hover {
+            border-color: var(--purple);
+        }
+
+        html.dark-mode .theme-toggle:hover svg {
+            fill: var(--purple);
+        }
+
+        .header {
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .header-text {
+            font-size: 12vw;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            color: var(--primary);
+        }
+
+        .scroll-indicator {
+            display: none;
+        }
+
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 3rem;
+        }
+
+        /* Brand Section Styles */
+        .brand-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            align-items: center;
+        }
+
+        .brand-intro {
+            font-size: 2rem;
+            font-weight: bold;
+            max-width: 800px;
+        }
+
+        .brand-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-color);
+            padding: 2rem;
+            text-align: center;
+            border: 0.125rem solid var(--primary);
+            transition: transform 0.3s ease;
+            border-radius: 1rem;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Projects Section Enhancement */
+        .projects-section {
+            grid-column: 1 / 7;
+            position: relative;
+        }
+
+        .project-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            background: none;
+            border: 0.125rem solid var(--primary);
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+        }
+
+        .filter-button:hover,
+        .filter-button.active {
+            background: var(--primary);
+            color: var(--bg-color);
+        }
+
+        .project-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            padding: 1rem 0;
+            border-bottom: 0.0625rem solid #B4B9C2;
+            transition: transform 0.3s ease;
+        }
+
+        .project-item:hover {
+            transform: translateX(10px);
+        }
+
+        /* Info Section Enhancement */
+        .info-section {
+            grid-column: 7 / -1;
+            padding: 2rem;
+        }
+
+        .section-block {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-block h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .news-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 0.0625rem solid #B4B9C2;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .news-date {
+            font-size: 0.875rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-source {
+            font-size: 0.875rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: 0.125rem solid var(--text-color);
+            background: transparent;
+            color: var(--text-color);
+        }
+
+        .newsletter-form input:invalid {
+            border-color: var(--purple);
+            box-shadow: none;
+        }
+
+        .newsletter-form input:invalid:focus {
+            outline: none;
+            border-color: var(--purple);
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: var(--text-color);
+            color: var(--bg-color);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        html.dark-mode .newsletter-form button {
+            color: #B4B9C2;
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(180, 185, 194, 0.7);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+            position: relative;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            display: none;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-content {
+            padding: 1.5rem;
+            background: var(--bg-color);
+            border: 0.125rem solid var(--text-color);
+        }
+
+        /* Analytics Section */
+        .analytics-section {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .chart-container {
+            background: var(--bg-color);
+            padding: 2rem;
+            border: 0.125rem solid var(--text-color);
+            min-height: 300px;
+            position: relative;
+        }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+            max-height: 300px;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-color);
+            padding: 2rem;
+            border: 0.125rem solid var(--text-color);
+            position: relative;
+        }
+
+        .testimonial-quote {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        /* Newsletter Enhancement */
+        .newsletter-section {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: 0.125rem solid var(--text-color);
+            background: transparent;
+            color: var(--text-color);
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: var(--text-color);
+            color: var(--bg-color);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Imprint Enhancement */
+        .imprint {
+            grid-column: 1 / -1;
+            padding: 2rem;
+            background-color: var(--bg-color);
+            margin-top: 4rem;
+            border-top: 0.125rem solid var(--text-color);
+            position: relative;
+        }
+
+        .imprint::before {
+            display: none;
+        }
+
+        .imprint:hover::before {
+            display: none;
+        }
+
+        /* Footer Enhancement */
+        .footer {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4rem;
+            padding: 4rem 0;
+            border-top: 0.125rem solid var(--text-color);
+        }
+
+        .footer-section {
+            position: relative;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--purple);
+        }
+
+        /* Enhanced Responsive Styles */
+        @media (max-width: 1400px) {
+            .main-content {
+                max-width: 1200px;
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                max-width: 1000px;
+                padding: 1.5rem;
+            }
+
+            .grid-container {
+                gap: 2rem;
+            }
+
+            .brand-section {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                max-width: 900px;
+            }
+
+            .brand-section {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .analytics-section {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .threejs-section {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                height: 40vh;
+            }
+
+            .header-text {
+                font-size: 12vw;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .grid-container {
+                gap: 1.5rem;
+            }
+
+            .brand-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .footer {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form button {
+                width: 100%;
+            }
+
+            .project-filters {
+                flex-wrap: wrap;
+            }
+
+            .filter-button {
+                flex: 1 1 calc(50% - 0.5rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                height: 30vh;
+            }
+
+            .header-text {
+                font-size: 15vw;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .grid-container {
+                gap: 1rem;
+            }
+
+            .brand-intro {
+                font-size: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .filter-button {
+                flex: 1 1 100%;
+            }
+        }
+
+        /* Tech Stack Section */
+        .tech-stack {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-item {
+            background: var(--bg-color);
+            padding: 2rem;
+            border: 0.125rem solid var(--text-color);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--purple);
+        }
+
+        .tech-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--purple);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .tech-item:hover::before {
+            opacity: 0.1;
+        }
+
+        .tech-item h3 {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+        }
+
+        .tech-item p {
+            position: relative;
+            z-index: 1;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Project Showcase Enhancement */
+        .project-showcase {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-color);
+            border: 0.125rem solid var(--text-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--purple);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .project-tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--text-color);
+            color: var(--bg-color);
+            border-radius: 1rem;
+            font-size: 0.8rem;
+        }
+
+        /* New Sections */
+        .services-section {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-color);
+            padding: 2rem;
+            border: 0.125rem solid var(--text-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--purple);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--purple);
+        }
+
+        .process-section {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .process-step {
+            position: relative;
+            padding: 2rem;
+            background: var(--bg-color);
+            border: 0.125rem solid var(--text-color);
+            text-align: center;
+        }
+
+        .process-step::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--purple);
+            color: var(--bg-color);
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .team-section {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: var(--bg-color);
+            border: 0.125rem solid var(--text-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            border-color: var(--purple);
+        }
+
+        .member-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .member-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .member-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            border: 0.25rem solid var(--text-color);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Design Insights Section Enhancement */
+        .design-insights {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+        }
+
+        .insights-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .insight-item {
+            padding: 1.5rem;
+            background: var(--bg-color);
+            border: 0.125rem solid var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .insight-item:hover {
+            transform: translateX(10px);
+            border-color: var(--purple);
+        }
+
+        .insight-date {
+            font-size: 0.875rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--purple);
+        }
+
+        .insight-excerpt {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Goal Section */
+        .grow-section {
+            grid-column: 1 / -1;
+            margin: 4rem 0;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--bg-color);
+            border: 0.125rem solid var(--text-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grow-section::before {
+            display: none;
+        }
+
+        .goal-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .goal-text {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin-top: 2rem;
+            color: var(--text-color);
+        }
+
+        .goal-text strong {
+            color: var(--purple);
+        }
+
+
+        .header-text::selection {
+            color: var(--purple);
+        }
+
+        /* Add Three.js section styles */
+        .threejs-section {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #threejs-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        #threejs-container canvas {
+            display: block;
+        }
+
+        .ball-tooltip {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-color);
+            color: var(--text-color);
+            padding: 0.25rem 0.75rem;
+            border: 0.125rem solid var(--purple);
+            border-radius: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+            font-size: 0.75rem;
+        }
+
+        .threejs-section:hover .ball-tooltip {
+            opacity: 1;
+        }
+
+        /* Add SVG Animation styles */
+        .svg-section {
+            grid-column: 1 / 7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .svg-section:hover {
+            transform: scale(0.9);
+        }
+
+        .svg-section svg {
+            width: 100%;
+            height: auto;
+            max-width: 600px;
+            background-color: transparent;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .svg-section:hover svg {
+            transform: scale(0.95);
+        }
+
+        .target-circle {
+            animation: gentlePulse 4s ease-in-out infinite;
+            opacity: 0;
+            transition: all 1.2s ease-in-out;
+        }
+
+        .target-circle.hidden {
+            opacity: 0;
+            animation: none;
+            transform: scale(0.1) rotate(180deg);
+        }
+
+        .target-circle.snap-back {
+            animation: bloomBack 1.5s ease-in-out;
+        }
+
+        @keyframes bloomBack {
+            0% {
+                opacity: 0;
+                transform: scale(0.1) rotate(180deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .main-circle {
+            transition: all 1.2s ease-in-out;
+            opacity: 1 !important;
+        }
+
+        .main-circle.fade-out {
+            transform: scale(0.9);
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% {
+                opacity: 0.8;
+                transform: scale(0.98);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm0 1.5c4.556 0 8.25 3.694 8.25 8.25s-3.694 8.25-8.25 8.25S3.75 16.556 3.75 12 7.444 3.75 12 3.75zm0 3.75c-2.485 0-4.5 2.015-4.5 4.5s2.015 4.5 4.5 4.5 4.5-2.015 4.5-4.5-2.015-4.5-4.5-4.5zm0 1.5c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"/>
+        </svg>
+    </button>
+
+    <header class="header">
+        <div class="header-text">Bloom.fyi</div>
+        <div class="scroll-indicator">Scroll to explore</div>
+    </header>
+
+    <main class="main-content">
+        <div class="grid-container">
+            <section class="brand-section">
+                <div class="brand-intro">
+                    Bloom.fyi is a new creative technology studio specializing in software, creative programming, and 3D design. We create innovative digital experiences and branding solutions that help artists and businesses express their unique vision in the digital age.
+                </div>
+                <div class="threejs-section">
+                    <div id="threejs-container"></div>
+                    <div class="ball-tooltip">This is 3D-rendered</div>
+                </div>
+            </section>
+
+            <section class="svg-section">
+                <svg width="600" height="600" viewBox="-200 -200 400 400">
+                    <defs>
+                        <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" style="stop-color:rgba(139, 92, 246, 0.2);" />
+                            <stop offset="100%" style="stop-color:rgba(139, 92, 246, 0.1);" />
+                        </radialGradient>
+                    </defs>
+
+                    <g id="target">
+                        <circle class="main-circle" cx="0" cy="0" r="100" fill="url(#grad1)" />
+                        <circle class="target-circle" cx="0" cy="0" r="90" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+                        <circle class="target-circle" cx="0" cy="0" r="70" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+                        <circle class="target-circle" cx="0" cy="0" r="50" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+                        <circle class="target-circle" cx="0" cy="0" r="30" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+                        <circle class="target-circle" cx="0" cy="0" r="10" fill="#8B5CF6" />
+                    </g>
+                </svg>
+            </section>
+
+            <section class="info-section">
+                <div class="section-block">
+                    <h2>Updates</h2>
+                    <div class="news-item">
+                        <div class="news-date">March 15, 2025</div>
+                        <div class="news-title">Bloom.fyi Launches New Creative Suite</div>
+                        <div class="news-source">Design Weekly - "Revolutionizing Digital Art Creation"</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">March 10, 2025</div>
+                        <div class="news-title">3D Art Platform Release</div>
+                        <div class="news-source">Creative Tech - "Breaking New Ground in Digital Art"</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">March 5, 2025</div>
+                        <div class="news-title">Brand Identity Partnership</div>
+                        <div class="news-source">Design Insider</div>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h2>Contact</h2>
+                    <p><a href="#" style="color: var(--text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--text-color)'">Los Angeles</a></p>
+                    <p><a href="#" style="color: var(--text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--text-color)'">London Office</a></p>
+                    <p><a href="#" style="color: var(--text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--text-color)'">Tokyo Office</a></p>
+                    <p><a href="mailto:press@bloom.fyi" style="color: var(--text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--text-color)'">press@bloom.fyi</a></p>
+                </div>
+            </section>
+
+            <section class="timeline-section">
+                <h2>Key Points</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">❋</div>
+                            <h3>Empowerment through technology</h3>
+                            <p>Bloom.fyi was established to empower digital artists, creators, and businesses</p>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">❋</div>
+                            <h3>Form follows function</h3>
+                            <p>Our software engineering and tool-making uses a meticulous 4 step process</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">❋</div>
+                            <h3>Art-forward approach</h3>
+                            <p>Strong design principles towards software and hardware</p>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">❋</div>
+                            <h3>Innovation initiative</h3>
+                            <p>Launching our next-generation 3D creation platform</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="design-insights">
+                <h2>Insights</h2>
+                <div class="insights-list">
+                    <div class="insight-item">
+                        <div class="insight-date">March 20, 2025</div>
+                        <div class="insight-title">The Evolution of Digital Design</div>
+                        <div class="insight-excerpt">Exploring how modern design is shaping digital experiences and user interfaces in 2025.</div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-date">March 18, 2025</div>
+                        <div class="insight-title">WebGL Performance Optimization</div>
+                        <div class="insight-excerpt">Best practices for creating smooth 3D experiences in the browser while maintaining performance.</div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-date">March 15, 2025</div>
+                        <div class="insight-title">Cloud Design Tools</div>
+                        <div class="insight-excerpt">Building scalable solutions for digital designers in the modern cloud environment.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tech-stack">
+                <div class="tech-item">
+                    <h3>Typography</h3>
+                    <p>Advanced custom type design</p>
+                </div>
+                <div class="tech-item">
+                    <h3>WebGL</h3>
+                    <p>High-performance 3D graphics in the browser and on devices</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Cloud Native</h3>
+                    <p>Scalable infrastructure for creative applications</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Motion Design</h3>
+                    <p>Dynamic animations and interactive experiences</p>
+                </div>
+            </section>
+
+            <section class="services-section">
+                <h2>Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">-</div>
+                        <h3>Brand Identity</h3>
+                        <p>Complete visual identity systems for modern businesses</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">-</div>
+                        <h3>Interface Design</h3>
+                        <p>Intuitive and beautiful user interfaces</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">-</div>
+                        <h3>Communication Design</h3>
+                        <p>Engaging visual user interaction and usability</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">-</div>
+                        <h3>Informational Design</h3>
+                        <p>Stunning informational materials and digital publishing</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="process-section">
+                <h2>Process</h2>
+                <div class="process-steps">
+                    <div class="process-step" data-step="1">
+                        <h3>Research</h3>
+                        <p>Understanding the project and requirements</p>
+                    </div>
+                    <div class="process-step" data-step="2">
+                        <h3>Strategy</h3>
+                        <p>Developing a comprehensive design strategy</p>
+                    </div>
+                    <div class="process-step" data-step="3">
+                        <h3>Design</h3>
+                        <p>Creating beautiful and functional solutions</p>
+                    </div>
+                    <div class="process-step" data-step="4">
+                        <h3>Delivery</h3>
+                        <p>Implement and refine the final product</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grow-section">
+                <div class="goal-content">
+                    <p class="goal-text">Bloom is constantly growing and open to nurturing projects <strong>collaboratively</strong></p>
+                </div>
+            </section>
+
+            <section class="newsletter-section">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for the latest in digital art and creative technology.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-section">
+                    <h3>About Bloom.fyi</h3>
+                    <p>Founded in 2025, Bloom is leading the way in digital art and creative technology, enabling artists and businesses to showcase their distinct visions using innovative software solutions.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Solutions</h3>
+                    <ul>
+                        <li><a href="#">Art Software</a></li>
+                        <li><a href="#">3D Creation</a></li>
+                        <li><a href="#">Creative Programming</a></li>
+                        <li><a href="#">Brand Identity</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">GitHub</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Theme toggle code
+        const themeToggle = document.querySelector('.theme-toggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark-mode');
+        });
+
+        // SVG Click Interaction
+        const svgSection = document.querySelector('.svg-section');
+        const targetCircles = document.querySelectorAll('.target-circle');
+        const mainCircle = document.querySelector('.main-circle');
+        let isAnimating = false;
+
+        svgSection.addEventListener('click', () => {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            // Hide all target circles with staggered delay
+            targetCircles.forEach((circle, index) => {
+                setTimeout(() => {
+                    circle.classList.add('hidden');
+                }, index * 150);
+            });
+
+            // Slightly scale down main circle
+            setTimeout(() => {
+                mainCircle.classList.add('fade-out');
+            }, 300);
+
+            // Reset after animation
+            setTimeout(() => {
+                // Return main circle to normal size
+                mainCircle.classList.remove('fade-out');
+
+                // Show target circles with staggered delay in reverse order
+                targetCircles.forEach((circle, index) => {
+                    setTimeout(() => {
+                        circle.classList.remove('hidden');
+                        // Add a temporary class for the blooming animation
+                        circle.classList.add('snap-back');
+                        // Remove the blooming class after animation completes
+                        setTimeout(() => {
+                            circle.classList.remove('snap-back');
+                        }, 1500);
+                    }, (targetCircles.length - 1 - index) * 150);
+                });
+
+                isAnimating = false;
+            }, 2000);
+        });
+
+        // Three.js Animation
+        const scene = new THREE.Scene();
+        const container = document.getElementById('threejs-container');
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        camera.position.z = 3;
+
+        // Purple Ball
+        const ballGeometry = new THREE.SphereGeometry(0.4, 24, 24);
+        const ballMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0x8B5CF6,
+            shininess: 30
+        });
+        const ball = new THREE.Mesh(ballGeometry, ballMaterial);
+        scene.add(ball);
+
+        // Main Light
+        const mainLight = new THREE.PointLight(0xffffff, 1);
+        mainLight.position.set(2, 2, 2);
+        scene.add(mainLight);
+
+        // Ambient Light
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        scene.add(ambientLight);
+
+        // Animation State
+        let scaleFactor = 1;
+        let growing = true;
+        let rotationSpeed = 0.005;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (growing) {
+                scaleFactor += 0.002;
+                if (scaleFactor >= 1.3) {
+                    growing = false;
+                }
+            } else {
+                scaleFactor -= 0.002;
+                if (scaleFactor <= 1) {
+                    growing = true;
+                }
+            }
+
+            ball.rotation.y += rotationSpeed;
+            ball.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+
+        // Rest of the existing JavaScript code
+        const imprintHeading = document.querySelector('.imprint h2');
+        const imprintText = document.querySelector('.imprint p');
+        
+        imprintHeading.addEventListener('click', () => {
+            imprintText.classList.toggle('hidden');
+        });
+
+        // Project filtering
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+                
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add hover effect to insight items
+        const insightItems = document.querySelectorAll('.insight-item');
+        insightItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateX(10px)';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body>
+</html> 
