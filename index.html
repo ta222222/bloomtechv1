@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloom.fyi - Next-Gen Technology Solutions</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>bloom.fyi - creative technology solutions</title>
     <style>
         :root {
             --primary: #8B5CF6;
@@ -48,6 +47,7 @@
             line-height: 1.6;
             transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1),
                         color 1s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: crosshair;
         }
 
         .theme-toggle {
@@ -67,7 +67,7 @@
             border-radius: 50%;
             width: 1.5rem;
             height: 1.5rem;
-            box-shadow: 0 2px 8px rgba(180, 185, 194, 0.1);
+            box-shadow: 0 0.125rem 0.5rem rgba(180, 185, 194, 0.1);
         }
 
         .theme-toggle:hover {
@@ -77,8 +77,8 @@
         }
 
         .theme-toggle svg {
-            width: 12px;
-            height: 12px;
+            width: 0.75rem;
+            height: 0.75rem;
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             fill: var(--text-color);
         }
@@ -117,18 +117,19 @@
         .header-text {
             font-size: 12vw;
             font-weight: 900;
-            text-transform: uppercase;
+            text-transform: lowercase;
             letter-spacing: -0.02em;
             line-height: 1;
             color: var(--primary);
+            transition: all 0.3s ease;
         }
 
-        .scroll-indicator {
-            display: none;
+        .header-text:hover {
+            filter: blur(36px);
         }
 
         .main-content {
-            max-width: 1400px;
+            max-width: 87.5rem;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -152,7 +153,7 @@
         .brand-intro {
             font-size: 2rem;
             font-weight: bold;
-            max-width: 800px;
+            max-width: 50rem;
         }
 
         .brand-stats {
@@ -180,55 +181,21 @@
             margin-bottom: 1rem;
         }
 
-        /* Projects Section Enhancement */
-        .projects-section {
-            grid-column: 1 / 7;
-            position: relative;
-        }
-
-        .project-filters {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .filter-button {
-            padding: 0.5rem 1rem;
-            background: none;
-            border: 0.125rem solid var(--primary);
-            color: var(--primary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 0.5rem;
-        }
-
-        .filter-button:hover,
-        .filter-button.active {
-            background: var(--primary);
-            color: var(--bg-color);
-        }
-
-        .project-item {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 2rem;
-            padding: 1rem 0;
-            border-bottom: 0.0625rem solid #B4B9C2;
-            transition: transform 0.3s ease;
-        }
-
-        .project-item:hover {
-            transform: translateX(10px);
-        }
-
         /* Info Section Enhancement */
         .info-section {
-            grid-column: 7 / -1;
+            grid-column: 1 / -1;
             padding: 2rem;
-        }
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            max-width: auto;
+            padding-left: 0;
+            flex-direction: column;
+            align-items: center;
+            }
 
         .section-block {
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
             position: relative;
         }
 
@@ -310,70 +277,26 @@
             transform: translateY(-2px);
         }
 
-        /* Gallery Section */
-        .gallery-section {
-            grid-column: 1 / -1;
-            margin: 4rem 0;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 1;
-            cursor: pointer;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(180, 185, 194, 0.7);
-            color: white;
-            padding: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        /* Timeline Section */
-        .timeline-section {
+        /* Gallery Section - REMOVED */
+        /* Key Points Section */
+        .key-points-section {
             grid-column: 1 / -1;
             margin: 4rem 0;
             position: relative;
+            align-items: center;
+            flex-direction: column;
         }
 
-        .timeline {
+        .key-points {
             position: relative;
             padding: 2rem 0;
         }
 
-        .timeline::before {
+        .key-points::before {
             display: none;
         }
 
-        .timeline-item {
+        .key-points-item {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
@@ -381,63 +304,10 @@
             position: relative;
         }
 
-        .timeline-content {
+        .key-points-content {
             padding: 1.5rem;
             background: var(--bg-color);
             border: 0.125rem solid var(--text-color);
-        }
-
-        /* Analytics Section */
-        .analytics-section {
-            grid-column: 1 / -1;
-            margin: 4rem 0;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .chart-container {
-            background: var(--bg-color);
-            padding: 2rem;
-            border: 0.125rem solid var(--text-color);
-            min-height: 300px;
-            position: relative;
-        }
-
-        .chart-container canvas {
-            width: 100% !important;
-            height: 100% !important;
-            max-height: 300px;
-        }
-
-        /* Testimonials Section */
-        .testimonials-section {
-            grid-column: 1 / -1;
-            margin: 4rem 0;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .testimonial-card {
-            background: var(--bg-color);
-            padding: 2rem;
-            border: 0.125rem solid var(--text-color);
-            position: relative;
-        }
-
-        .testimonial-quote {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial-author {
-            font-weight: bold;
-            text-align: right;
         }
 
         /* Newsletter Enhancement */
@@ -450,7 +320,7 @@
         .newsletter-form {
             display: flex;
             gap: 1rem;
-            max-width: 600px;
+            max-width: 37.5rem;
             margin: 2rem auto;
         }
 
@@ -474,24 +344,6 @@
 
         .newsletter-form button:hover {
             transform: translateY(-2px);
-        }
-
-        /* Imprint Enhancement */
-        .imprint {
-            grid-column: 1 / -1;
-            padding: 2rem;
-            background-color: var(--bg-color);
-            margin-top: 4rem;
-            border-top: 0.125rem solid var(--text-color);
-            position: relative;
-        }
-
-        .imprint::before {
-            display: none;
-        }
-
-        .imprint:hover::before {
-            display: none;
         }
 
         /* Footer Enhancement */
@@ -528,16 +380,16 @@
         }
 
         /* Enhanced Responsive Styles */
-        @media (max-width: 1400px) {
+        @media (max-width: 87.5rem) {
             .main-content {
-                max-width: 1200px;
+                max-width: 75rem;
                 padding: 2rem;
             }
         }
 
-        @media (max-width: 1200px) {
+        @media (max-width: 75rem) {
             .main-content {
-                max-width: 1000px;
+                max-width: 62.5rem;
                 padding: 1.5rem;
             }
 
@@ -550,9 +402,9 @@
             }
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 64rem) {
             .main-content {
-                max-width: 900px;
+                max-width: 56.25rem;
             }
 
             .brand-section {
@@ -560,18 +412,6 @@
             }
 
             .brand-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .analytics-section {
-                grid-template-columns: 1fr;
-            }
-
-            .testimonials-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
@@ -580,17 +420,19 @@
             }
 
             .threejs-section {
-                height: 300px;
+                height: 18.75rem;
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 48rem) {
             .header {
                 height: 40vh;
+                text-align: center;
             }
 
             .header-text {
                 font-size: 12vw;
+                text-align: center;
             }
 
             .main-content {
@@ -599,51 +441,110 @@
 
             .grid-container {
                 gap: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .grid-container > section {
+                width: 100%;
+                max-width: 25rem;
+            }
+
+            .info-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 1rem;
+            }
+
+            .section-block {
+                width: 100%;
+                max-width: 25rem;
+            }
+
+            .news-item {
+                text-align: center;
+            }
+
+            .key-points {
+                width: 100%;
+                max-width: 25rem;
+            }
+
+            .key-points-content {
+                margin-bottom: 1rem;
+            }
+
+            .grow-section {
+                padding: 2rem 1rem;
+            }
+
+            .goal-content {
+                width: 100%;
+                max-width: 25rem;
             }
 
             .brand-stats {
                 grid-template-columns: 1fr;
             }
 
-            .gallery-grid {
-                grid-template-columns: 1fr;
+            .brand-intro {
+                text-align: center;
             }
 
-            .testimonials-grid {
+            .key-points-item {
                 grid-template-columns: 1fr;
+                text-align: center;
             }
 
-            .timeline-item {
-                grid-template-columns: 1fr;
-            }
-
-            .timeline::before {
-                left: 0;
+            .section-block h2,
+            .services-section h2,
+            .process-section h2,
+            .tech-section h2,
+            .design-insights h2 {
+                text-align: center;
             }
 
             .footer {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                text-align: center;
             }
 
             .newsletter-form {
                 flex-direction: column;
+                align-items: center;
             }
 
             .newsletter-form button {
                 width: 100%;
             }
 
-            .project-filters {
-                flex-wrap: wrap;
+            .services-grid,
+            .process-steps,
+            .tech-section,
+            .insights-list {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
-            .filter-button {
-                flex: 1 1 calc(50% - 0.5rem);
+            .service-card,
+            .process-step,
+            .tech-item,
+            .insight-item {
+                width: 100%;
+                max-width: 25rem;
+                margin: 0 auto;
+            }
+
+            .insight-item:hover {
+                transform: translateY(-5px);
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 30rem) {
             .header {
                 height: 30vh;
             }
@@ -662,23 +563,27 @@
 
             .brand-intro {
                 font-size: 1.5rem;
+                text-align: center;
             }
 
             .stat-number {
                 font-size: 2.5rem;
             }
 
-            .filter-button {
-                flex: 1 1 100%;
+            .service-card,
+            .process-step,
+            .tech-item,
+            .insight-item {
+                max-width: 100%;
             }
         }
 
-        /* Tech Stack Section */
-        .tech-stack {
+        /* Tech Section */
+        .tech-section {
             grid-column: 1 / -1;
             margin: 4rem 0;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
             gap: 2rem;
         }
 
@@ -728,58 +633,7 @@
             opacity: 0.8;
         }
 
-        /* Project Showcase Enhancement */
-        .project-showcase {
-            grid-column: 1 / -1;
-            margin: 4rem 0;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .project-card {
-            background: var(--bg-color);
-            border: 0.125rem solid var(--text-color);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--purple);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .project-tag {
-            padding: 0.25rem 0.75rem;
-            background: var(--text-color);
-            color: var(--bg-color);
-            border-radius: 1rem;
-            font-size: 0.8rem;
-        }
-
-        /* New Sections */
+        /* Services Section */
         .services-section {
             grid-column: 1 / -1;
             margin: 4rem 0;
@@ -787,7 +641,7 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -818,7 +672,7 @@
 
         .process-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -846,73 +700,6 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-        }
-
-        .team-section {
-            grid-column: 1 / -1;
-            margin: 4rem 0;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .team-member {
-            background: var(--bg-color);
-            border: 0.125rem solid var(--text-color);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .team-member:hover {
-            transform: translateY(-5px);
-            border-color: var(--purple);
-        }
-
-        .member-image {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-        }
-
-        .member-info {
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .member-name {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .member-role {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .loading::after {
-            content: '';
-            display: inline-block;
-            width: 2rem;
-            height: 2rem;
-            border: 0.25rem solid var(--text-color);
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         /* Design Insights Section Enhancement */
@@ -992,15 +779,14 @@
             color: var(--purple);
         }
 
-
         .header-text::selection {
             color: var(--purple);
         }
 
-        /* Add Three.js section styles */
+        /* Three.js section styles */
         .threejs-section {
             width: 100%;
-            height: 400px;
+            height: 18.75rem;
             position: relative;
             overflow: hidden;
         }
@@ -1035,31 +821,25 @@
             opacity: 1;
         }
 
-        /* Add SVG Animation styles */
+        /* SVG Animation styles */
         .svg-section {
-            grid-column: 1 / 7;
+            grid-column: 1 / -1;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 2rem 1rem;
+            margin: 4rem 0;
             transition: transform 0.5s ease-in-out;
-        }
-
-        .svg-section:hover {
-            transform: scale(0.9);
+            width: 100%;
         }
 
         .svg-section svg {
             width: 100%;
             height: auto;
-            max-width: 600px;
+            max-width: 37.5rem;
             background-color: transparent;
             transition: transform 0.5s ease-in-out;
-        }
-
-        .svg-section:hover svg {
-            transform: scale(0.95);
+            margin: 0 auto;
         }
 
         .target-circle {
@@ -1074,28 +854,10 @@
             transform: scale(0.1) rotate(180deg);
         }
 
-        .target-circle.snap-back {
-            animation: bloomBack 1.5s ease-in-out;
-        }
-
-        @keyframes bloomBack {
-            0% {
-                opacity: 0;
-                transform: scale(0.1) rotate(180deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-        }
-
-        .main-circle {
-            transition: all 1.2s ease-in-out;
-            opacity: 1 !important;
-        }
-
-        .main-circle.fade-out {
-            transform: scale(0.9);
+        .target-circle.visible {
+            opacity: 0.8;
+            transform: scale(1) rotate(0deg);
+            animation: gentlePulse 4s ease-in-out infinite;
         }
 
         @keyframes gentlePulse {
@@ -1108,6 +870,15 @@
                 transform: scale(1.02);
             }
         }
+
+        .main-circle {
+            transition: all 1.2s ease-in-out;
+            opacity: 1 !important;
+        }
+
+        .main-circle.fade-out {
+            transform: scale(0.9);
+        }
     </style>
 </head>
 <body>
@@ -1118,15 +889,14 @@
     </button>
 
     <header class="header">
-        <div class="header-text">Bloom.fyi</div>
-        <div class="scroll-indicator">Scroll to explore</div>
+        <div class="header-text">bloom</div>
     </header>
 
     <main class="main-content">
         <div class="grid-container">
             <section class="brand-section">
                 <div class="brand-intro">
-                    Bloom.fyi is a new creative technology studio specializing in software, creative programming, and 3D design. We create innovative digital experiences and branding solutions that help artists and businesses express their unique vision in the digital age.
+                    bloom.fyi is a new technology company specializing in software, creative programming, and 3D design. Our studio creates innovative digital experiences and offers branding solutions to help artists and businesses express their unique vision in the digital age.
                 </div>
                 <div class="threejs-section">
                     <div id="threejs-container"></div>
@@ -1134,32 +904,12 @@
                 </div>
             </section>
 
-            <section class="svg-section">
-                <svg width="600" height="600" viewBox="-200 -200 400 400">
-                    <defs>
-                        <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" style="stop-color:rgba(139, 92, 246, 0.2);" />
-                            <stop offset="100%" style="stop-color:rgba(139, 92, 246, 0.1);" />
-                        </radialGradient>
-                    </defs>
-
-                    <g id="target">
-                        <circle class="main-circle" cx="0" cy="0" r="100" fill="url(#grad1)" />
-                        <circle class="target-circle" cx="0" cy="0" r="90" fill="none" stroke="#8B5CF6" stroke-width="2"/>
-                        <circle class="target-circle" cx="0" cy="0" r="70" fill="none" stroke="#8B5CF6" stroke-width="2"/>
-                        <circle class="target-circle" cx="0" cy="0" r="50" fill="none" stroke="#8B5CF6" stroke-width="2"/>
-                        <circle class="target-circle" cx="0" cy="0" r="30" fill="none" stroke="#8B5CF6" stroke-width="2"/>
-                        <circle class="target-circle" cx="0" cy="0" r="10" fill="#8B5CF6" />
-                    </g>
-                </svg>
-            </section>
-
             <section class="info-section">
                 <div class="section-block">
                     <h2>Updates</h2>
                     <div class="news-item">
                         <div class="news-date">March 15, 2025</div>
-                        <div class="news-title">Bloom.fyi Launches New Creative Suite</div>
+                        <div class="news-title">bloom.fyi Launches New Creative Suite</div>
                         <div class="news-source">Design Weekly - "Revolutionizing Digital Art Creation"</div>
                     </div>
                     <div class="news-item">
@@ -1174,38 +924,29 @@
                     </div>
                 </div>
 
-                <div class="section-block">
-                    <h2>Contact</h2>
-                    <p><a href="#" style="color: var(--text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--text-color)'">Los Angeles</a></p>
-                    <p><a href="#" style="color: var(--text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--text-color)'">London Office</a></p>
-                    <p><a href="#" style="color: var(--text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--text-color)'">Tokyo Office</a></p>
-                    <p><a href="mailto:press@bloom.fyi" style="color: var(--text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--text-color)'">press@bloom.fyi</a></p>
-                </div>
-            </section>
-
-            <section class="timeline-section">
+            <section class="key-points-section">
                 <h2>Key Points</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">❋</div>
+                <div class="key-points">
+                    <div class="key-points-item">
+                        <div class="key-points-content">
+                            <div class="key-points-date">❋</div>
                             <h3>Empowerment through technology</h3>
-                            <p>Bloom.fyi was established to empower digital artists, creators, and businesses</p>
+                            <p>bloom.fyi was established to empower artists and businesses with digital solutions</p>
                         </div>
-                        <div class="timeline-content">
-                            <div class="timeline-date">❋</div>
+                        <div class="key-points-content">
+                            <div class="key-points-date">❋</div>
                             <h3>Form follows function</h3>
                             <p>Our software engineering and tool-making uses a meticulous 4 step process</p>
                         </div>
                     </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">❋</div>
+                    <div class="key-points-item">
+                        <div class="key-points-content">
+                            <div class="key-points-date">❋</div>
                             <h3>Art-forward approach</h3>
                             <p>Strong design principles towards software and hardware</p>
                         </div>
-                        <div class="timeline-content">
-                            <div class="timeline-date">❋</div>
+                        <div class="key-points-content">
+                            <div class="key-points-date">❋</div>
                             <h3>Innovation initiative</h3>
                             <p>Launching our next-generation 3D creation platform</p>
                         </div>
@@ -1234,9 +975,9 @@
                 </div>
             </section>
 
-            <section class="tech-stack">
+            <section class="tech-section">
                 <div class="tech-item">
-                    <h3>Typography</h3>
+                    <h3>Continuous Integration</h3>
                     <p>Advanced custom type design</p>
                 </div>
                 <div class="tech-item">
@@ -1248,8 +989,8 @@
                     <p>Scalable infrastructure for creative applications</p>
                 </div>
                 <div class="tech-item">
-                    <h3>Motion Design</h3>
-                    <p>Dynamic animations and interactive experiences</p>
+                    <h3>Software Development</h3>
+                    <p>Dynamic development of interactive experiences</p>
                 </div>
             </section>
 
@@ -1301,9 +1042,29 @@
                 </div>
             </section>
 
+            <section class="svg-section">
+                <svg width="600" height="600" viewBox="-200 -200 400 400">
+                    <defs>
+                        <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" style="stop-color:rgba(139, 92, 246, 0.2);" />
+                            <stop offset="100%" style="stop-color:rgba(139, 92, 246, 0.1);" />
+                        </radialGradient>
+                    </defs>
+
+                    <g id="target">
+                        <circle class="main-circle" cx="0" cy="0" r="100" fill="url(#grad1)" />
+                        <circle class="target-circle" cx="0" cy="0" r="90" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+                        <circle class="target-circle" cx="0" cy="0" r="70" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+                        <circle class="target-circle" cx="0" cy="0" r="50" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+                        <circle class="target-circle" cx="0" cy="0" r="30" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+                        <circle class="target-circle" cx="0" cy="0" r="10" fill="#8B5CF6" />
+                    </g>
+                </svg>
+            </section>
+
             <section class="grow-section">
                 <div class="goal-content">
-                    <p class="goal-text">Bloom is constantly growing and open to nurturing projects <strong>collaboratively</strong></p>
+                    <p class="goal-text">bloom is constantly growing and open to nurturing projects <strong>collaboratively</strong></p>
                 </div>
             </section>
 
@@ -1318,8 +1079,8 @@
 
             <footer class="footer">
                 <div class="footer-section">
-                    <h3>About Bloom.fyi</h3>
-                    <p>Founded in 2025, Bloom is leading the way in digital art and creative technology, enabling artists and businesses to showcase their distinct visions using innovative software solutions.</p>
+                    <h3>About bloom.fyi</h3>
+                    <p>Founded in 2025 and based in California, bloom is leading the way in digital art and creative technology, enabling artists and businesses to showcase their distinct visions using innovative software solutions.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Solutions</h3>
@@ -1342,9 +1103,10 @@
                 <div class="footer-section">
                     <h3>Connect</h3>
                     <ul>
-                        <li><a href="#">Twitter</a></li>
                         <li><a href="#">LinkedIn</a></li>
                         <li><a href="#">GitHub</a></li>
+                        <li><a href="mailto:press@bloom.fyi" style="color: var(--text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--text-color)'">press@bloom.fyi</a></li>
+
                     </ul>
                 </div>
             </footer>
@@ -1388,17 +1150,12 @@
                 // Return main circle to normal size
                 mainCircle.classList.remove('fade-out');
 
-                // Show target circles with staggered delay in reverse order
+                // Show target circles with staggered delay in the same order
                 targetCircles.forEach((circle, index) => {
                     setTimeout(() => {
                         circle.classList.remove('hidden');
-                        // Add a temporary class for the blooming animation
-                        circle.classList.add('snap-back');
-                        // Remove the blooming class after animation completes
-                        setTimeout(() => {
-                            circle.classList.remove('snap-back');
-                        }, 1500);
-                    }, (targetCircles.length - 1 - index) * 150);
+                        circle.classList.add('visible');
+                    }, index * 150);
                 });
 
                 isAnimating = false;
@@ -1475,27 +1232,6 @@
             imprintText.classList.toggle('hidden');
         });
 
-        // Project filtering
-        const filterButtons = document.querySelectorAll('.filter-button');
-        const projectCards = document.querySelectorAll('.project-card');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const filter = button.dataset.filter;
-                
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                projectCards.forEach(card => {
-                    if (filter === 'all' || card.dataset.category === filter) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
         // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1517,5 +1253,43 @@
             });
         });
     </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
 </body>
 </html> 
