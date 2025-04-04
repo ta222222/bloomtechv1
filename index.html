@@ -115,7 +115,7 @@
         }
 
         .header-text {
-            font-size: 12vw;
+            font-size: 9vw;
             font-weight: 900;
             text-transform: lowercase;
             letter-spacing: -0.02em;
@@ -156,34 +156,9 @@
         }
 
         .brand-intro {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: bold;
             max-width: 50rem;
-        }
-
-        .brand-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .stat-card {
-            background: var(--bg-color);
-            padding: 2rem;
-            text-align: center;
-            border: 0.125rem solid var(--primary);
-            transition: transform 0.3s ease;
-            border-radius: 1rem;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
         }
 
         /* Info Section Enhancement */
@@ -254,21 +229,20 @@
             color: var(--text-color);
             font-size: 1rem;
             transition: all 0.3s ease;
+            outline: none;
         }
 
-        .newsletter-form input:invalid {
+        .newsletter-form input:focus {
             border-color: var(--purple);
             box-shadow: 0 0 0.5rem var(--purple);
         }
 
-        .newsletter-form input:invalid:focus {
-            outline: none;
-            border-color: var(--purple);
-            box-shadow: 0 0 0.75rem var(--purple);
+        .newsletter-form input:invalid {
+            border-color: var(--text-color);
+            box-shadow: none;
         }
 
-        .newsletter-form input:focus {
-            outline: none;
+        .newsletter-form input:invalid:focus {
             border-color: var(--purple);
             box-shadow: 0 0 0.5rem var(--purple);
         }
@@ -952,7 +926,7 @@
         <div class="grid-container">
             <section class="brand-section">
                 <div class="brand-intro">
-                    bloom.fyi is a new technology company specializing in software, creative programming, and 3D design. Our studio creates innovative digital experiences and offers branding solutions to help artists and businesses express their unique vision in the digital age.
+                    bloom.fyi is a new technology company specializing in software, creative programming, and 3D design for web. Our studio creates innovative digital experiences and offers branding solutions to help artists and businesses express their unique vision in the digital age.
                 </div>
                 <div class="threejs-section">
                     <div id="threejs-container"></div>
@@ -1023,11 +997,6 @@
                         <div class="insight-title">WebGL Performance Optimization</div>
                         <div class="insight-excerpt">Best practices for creating smooth 3D experiences in the browser while maintaining performance.</div>
                     </div>
-                    <div class="insight-item">
-                        <div class="insight-date">March 15, 2025</div>
-                        <div class="insight-title">Cloud Design Tools</div>
-                        <div class="insight-excerpt">Building scalable solutions for digital designers in the modern cloud environment.</div>
-                    </div>
                 </div>
             </section>
 
@@ -1042,7 +1011,7 @@
                 </div>
                 <div class="tech-item">
                     <h3>Cloud Native</h3>
-                    <p>Scalable infrastructure for creative applications</p>
+                    <p>Building scalable infrastructure with creative application for use in a modern cloud environment</p>
                 </div>
                 <div class="tech-item">
                     <h3>Software Development</h3>
@@ -1060,7 +1029,7 @@
                     </div>
                     <div class="service-card">
                         <div class="service-icon">-</div>
-                        <h3>Interface Design</h3>
+                        <h3>User Interface Design</h3>
                         <p>Intuitive and beautiful user interfaces</p>
                     </div>
                     <div class="service-card">
@@ -1099,7 +1068,7 @@
             </section>
 
             <section class="svg-section">
-                <div class="svg-tooltip">This is animated, *click*</div>
+                <div class="svg-tooltip">This is animated, *click* or *tap*</div>
                 <svg width="600" height="600" viewBox="-200 -200 400 400">
                     <defs>
                         <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
@@ -1136,14 +1105,13 @@
 
             <footer class="footer">
                 <div class="footer-section">
-                    <h3>About bloom.fyi</h3>
-                    <p>Founded in 2025 and based in California, bloom is leading the way in digital art and creative technology, enabling artists and businesses to showcase their distinct visions using innovative software solutions.</p>
+                    <h3>About</h3>
+                    <p>Founded in 2025, based in <em>California</em> - bloom is leading the way in digital art and creative technology, enabling artists and businesses to showcase their distinct visions using innovative software solutions.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Solutions</h3>
                     <ul>
-                        <li><a href="#">Art Software</a></li>
-                        <li><a href="#">3D Creation</a></li>
+                        <li><a href="#">Custom Software</a></li>
                         <li><a href="#">Creative Programming</a></li>
                         <li><a href="#">Brand Identity</a></li>
                     </ul>
@@ -1154,13 +1122,11 @@
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Terms of Service</a></li>
                         <li><a href="#">Security</a></li>
-                        <li><a href="#">Compliance</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Connect</h3>
                     <ul>
-                        <li><a href="#">LinkedIn</a></li>
                         <li><a href="#">GitHub</a></li>
                         <li><a href="mailto:press@bloom.fyi" style="color: var(--text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='var(--text-color)'">press@bloom.fyi</a></li>
 
@@ -1332,43 +1298,5 @@
             });
         });
     </script>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
 </body>
 </html> 
