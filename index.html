@@ -122,10 +122,15 @@
             line-height: 1;
             color: var(--primary);
             transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .header-text:hover {
-            filter: blur(36px);
+            filter: blur(33px);
+        }
+
+        .header-text.clicked {
+            color: var(--bg-color);
         }
 
         .main-content {
@@ -247,16 +252,25 @@
             border: 0.125rem solid var(--text-color);
             background: transparent;
             color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
         .newsletter-form input:invalid {
             border-color: var(--purple);
-            box-shadow: none;
+            box-shadow: 0 0 0.5rem var(--purple);
         }
 
         .newsletter-form input:invalid:focus {
             outline: none;
             border-color: var(--purple);
+            box-shadow: 0 0 0.75rem var(--purple);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: 0 0 0.5rem var(--purple);
         }
 
         .newsletter-form button {
@@ -330,6 +344,7 @@
             border: 0.125rem solid var(--text-color);
             background: transparent;
             color: var(--text-color);
+            font-size: 1rem;
         }
 
         .newsletter-form button {
@@ -515,10 +530,21 @@
             .newsletter-form {
                 flex-direction: column;
                 align-items: center;
+                width: 100%;
+                padding: 0 1rem;
+            }
+
+            .newsletter-form input {
+                width: 100%;
+                padding: 1.25rem;
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
             }
 
             .newsletter-form button {
                 width: 100%;
+                padding: 1.25rem;
+                font-size: 1.1rem;
             }
 
             .services-grid,
@@ -576,6 +602,12 @@
             .insight-item {
                 max-width: 100%;
             }
+
+            .newsletter-form input,
+            .newsletter-form button {
+                padding: 1rem;
+                font-size: 0.8rem;
+            }
         }
 
         /* Tech Section */
@@ -593,7 +625,6 @@
             border: 0.125rem solid var(--text-color);
             text-align: center;
             transition: all 0.3s ease;
-            cursor: pointer;
             position: relative;
             overflow: hidden;
         }
@@ -651,7 +682,6 @@
             padding: 2rem;
             border: 0.125rem solid var(--text-color);
             transition: all 0.3s ease;
-            cursor: pointer;
         }
 
         .service-card:hover {
@@ -802,7 +832,7 @@
 
         .ball-tooltip {
             position: absolute;
-            top: 30%;
+            top: 25%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: var(--bg-color);
@@ -831,6 +861,28 @@
             margin: 4rem 0;
             transition: transform 0.5s ease-in-out;
             width: 100%;
+            position: relative;
+        }
+
+        .svg-tooltip {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-color);
+            color: var(--text-color);
+            padding: 0.25rem 0.75rem;
+            border: 0.125rem solid var(--purple);
+            border-radius: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+            font-size: 0.75rem;
+        }
+
+        .svg-section:hover .svg-tooltip {
+            opacity: 1;
         }
 
         .svg-section svg {
@@ -840,6 +892,10 @@
             background-color: transparent;
             transition: transform 0.5s ease-in-out;
             margin: 0 auto;
+        }
+
+        .svg-section svg.clicked {
+            transform: scale(0.8);
         }
 
         .target-circle {
@@ -1043,6 +1099,7 @@
             </section>
 
             <section class="svg-section">
+                <div class="svg-tooltip">This is animated, *click*</div>
                 <svg width="600" height="600" viewBox="-200 -200 400 400">
                     <defs>
                         <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
@@ -1069,8 +1126,8 @@
             </section>
 
             <section class="newsletter-section">
-                <h2>Stay Updated</h2>
-                <p>Subscribe to our newsletter for the latest in digital art and creative technology.</p>
+                <h2>Subscribe</h2>
+                <p>Subscribe to our newsletter for the latest in digital and creative technology.</p>
                 <form class="newsletter-form">
                     <input type="email" placeholder="Enter your email" required>
                     <button type="submit">Subscribe</button>
@@ -1118,13 +1175,30 @@
         // Theme toggle code
         const themeToggle = document.querySelector('.theme-toggle');
         const html = document.documentElement;
+        const headerText = document.querySelector('.header-text');
         
         themeToggle.addEventListener('click', () => {
             html.classList.toggle('dark-mode');
         });
 
+        // Header click/tap interaction
+        let headerClickTimeout;
+
+        function handleHeaderInteraction() {
+            headerText.classList.add('clicked');
+            
+            clearTimeout(headerClickTimeout);
+            headerClickTimeout = setTimeout(() => {
+                headerText.classList.remove('clicked');
+            }, 300);
+        }
+
+        headerText.addEventListener('click', handleHeaderInteraction);
+        headerText.addEventListener('touchstart', handleHeaderInteraction, { passive: true });
+
         // SVG Click Interaction
         const svgSection = document.querySelector('.svg-section');
+        const svgElement = svgSection.querySelector('svg');
         const targetCircles = document.querySelectorAll('.target-circle');
         const mainCircle = document.querySelector('.main-circle');
         let isAnimating = false;
@@ -1132,6 +1206,9 @@
         svgSection.addEventListener('click', () => {
             if (isAnimating) return;
             isAnimating = true;
+
+            // Add scale down effect
+            svgElement.classList.add('clicked');
 
             // Hide all target circles with staggered delay
             targetCircles.forEach((circle, index) => {
@@ -1149,6 +1226,8 @@
             setTimeout(() => {
                 // Return main circle to normal size
                 mainCircle.classList.remove('fade-out');
+                // Remove scale down effect
+                svgElement.classList.remove('clicked');
 
                 // Show target circles with staggered delay in the same order
                 targetCircles.forEach((circle, index) => {
