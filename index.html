@@ -414,6 +414,24 @@
         }
 
         @media (max-width: 48rem) {
+            * {
+                transition: none !important;
+            }
+            
+            body {
+                transition: none !important;
+            }
+            
+            .theme-toggle, 
+            .theme-toggle svg {
+                transition: none !important;
+            }
+            
+            html.dark-mode,
+            html.dark-mode * {
+                transition: none !important;
+            }
+            
             .header {
                 height: 40vh;
                 text-align: center;
