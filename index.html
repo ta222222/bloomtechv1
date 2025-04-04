@@ -46,7 +46,7 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1),
-                color 1s cubic-bezier(0.4, 0, 0.2, 1);
+    color 1s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: crosshair;
 }
 
@@ -195,13 +195,21 @@ html.dark-mode .header-text {
 .news-item {
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 0.0625rem solid #B4B9C2;
+    border-bottom: 0.0625rem solid var(--text-color);
 }
 
 .news-item:last-child {
     border-bottom: none;
     margin-bottom: 0;
     padding-bottom: 0;
+}
+
+html.dark-mode .news-item {
+    border-bottom: 0.0625rem solid var(--text-color);
+}
+
+html.dark-mode .news-item:last-child {
+    border-bottom: none;
 }
 
 .news-date {
