@@ -414,7 +414,7 @@
         }
 
         @media (max-width: 48rem) {
-            * {
+            *:not(.svg-section *):not(.target-circle):not(.main-circle) {
                 transition: none !important;
             }
             
@@ -428,7 +428,7 @@
             }
             
             html.dark-mode,
-            html.dark-mode * {
+            html.dark-mode *:not(.svg-section *):not(.target-circle):not(.main-circle) {
                 transition: none !important;
             }
             
@@ -498,6 +498,7 @@
 
             .brand-intro {
                 text-align: center;
+                font-size: 1.125rem;
             }
 
             .key-points-item {
@@ -580,7 +581,7 @@
             }
 
             .brand-intro {
-                font-size: 1.5rem;
+                font-size: 1rem;
                 text-align: center;
             }
 
@@ -1086,7 +1087,7 @@
             </section>
 
             <section class="svg-section">
-                <div class="svg-tooltip">This is animated, *click* or *tap*</div>
+                <div class="svg-tooltip">This is animated, *click*</div>
                 <svg width="600" height="600" viewBox="-200 -200 400 400">
                     <defs>
                         <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
@@ -1124,7 +1125,7 @@
             <footer class="footer">
                 <div class="footer-section">
                     <h3>About</h3>
-                    <p>Founded in 2025, based in <em>California</em> - bloom is leading the way in digital art and creative technology, enabling artists and businesses to showcase their distinct visions using innovative software solutions.</p>
+                    <p>Founded in 2025, based in California - <em>bloom</em> is leading the way in digital art and creative technology, enabling artists and businesses to showcase their distinct visions using innovative software solutions.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Solutions</h3>
