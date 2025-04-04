@@ -150,7 +150,7 @@ html.dark-mode .header-text {
 }
 
 /* Brand Section Styles */
-.brand-section {
+.brand-section {    
     grid-column: 1 / -1;
     display: grid;
     padding-left: 2rem;
@@ -173,11 +173,10 @@ html.dark-mode .header-text {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 4rem;
-    max-width: auto;
+    max-width: none;
     padding-left: 2rem;
-    flex-direction: column;
     align-items: center;
-    }
+}
 
 .section-block {
     margin-bottom: 2rem;
@@ -392,7 +391,7 @@ html.dark-mode .newsletter-form button {
 
     .brand-section {
         gap: 2rem;
-        padding-left: 2;
+        padding-left: 2rem;
     }
 }
 
@@ -403,6 +402,7 @@ html.dark-mode .newsletter-form button {
 
     .brand-section {
         grid-template-columns: 1fr;
+        padding-left: 2rem;
     }
 
     .brand-stats {
@@ -420,24 +420,17 @@ html.dark-mode .newsletter-form button {
 }
 
 @media (max-width: 48rem) {
-    *:not(.svg-section *):not(.target-circle):not(.main-circle) {
-        transition: none !important;
-    }
-    
-    body {
-        transition: none !important;
-    }
-    
-    .theme-toggle, 
-    .theme-toggle svg {
-        transition: none !important;
-    }
-    
+    /* Consolidate all transition disabling rules */
+    *:not(.svg-section *):not(.target-circle):not(.main-circle),
+    body,
+    .theme-toggle,
+    .theme-toggle svg,
     html.dark-mode,
     html.dark-mode *:not(.svg-section *):not(.target-circle):not(.main-circle) {
         transition: none !important;
     }
-    
+
+    /* Rest of the media query rules */
     .header {
         height: 40vh;
         text-align: center;
@@ -462,8 +455,13 @@ html.dark-mode .newsletter-form button {
     .grid-container > section {
         width: 100%;
         max-width: 25rem;
-    }
+    }   
 
+    .brand-section {
+        grid-template-columns: 1fr;
+        padding-left: 2rem;
+    }
+    
     .info-section {
         display: flex;
         flex-direction: column;
@@ -589,6 +587,10 @@ html.dark-mode .newsletter-form button {
     .brand-intro {
         font-size: 1rem;
         text-align: center;
+    }
+
+    .brand-section {
+        padding-left: 0;
     }
 
     .stat-number {
